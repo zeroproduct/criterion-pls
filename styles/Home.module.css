@@ -1,0 +1,150 @@
+.container {
+  max-width: 1640px;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: row;
+  margin: 1rem auto;
+}
+
+.main {
+  width: 75%;
+  padding: 0 .8152173913rem;
+  border-right: 3px solid #0a0a0a;
+}
+
+.header {
+  display: flex;
+  flex-direction: row wrap;
+  justify-content: space-between;
+  height: 128px;
+  border-bottom: 3px solid #0a0a0a;
+}
+
+.header h1 {
+  margin: 0 0 .8152173913rem;
+  padding: 0 .8152173913rem;
+  border-left: 3px solid #0a0a0a;
+}
+
+.header span {
+  padding: 0 1.0869565217rem;
+}
+
+.header button {
+  margin-left: 1.0869565217rem;
+  height: 64px;
+  width: auto;
+  padding: 16px;
+  border: 3px solid #0a0a0a;
+  color: #0a0a0a;
+  background-color: white;
+  font-size: 20px;
+  cursor: pointer;
+  flex: 0 0 25%;
+  background-color: transparent;
+}
+
+.content {
+  padding: .8152173913rem 0;
+}
+
+.content__image {
+  display: flex;
+  justify-content: center;
+}
+
+.content__image img {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.content__data h1 {
+  border-left: 3px solid #0a0a0a;
+  padding: 0 .8152173913rem;
+}
+
+.content__info {
+  padding: 0 1.0869565217rem;
+}
+
+.saved {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  padding: 0 .8152173913rem;
+}
+
+.saved h1 {
+  align-self: flex-end;
+  width: fit-content;
+  margin: 0;
+  padding: 0 .8152173913rem;
+  border-right: 3px solid #0a0a0a;
+}
+
+.saved ul {
+  padding: 0 1.0869565217rem;
+}
+
+.saved ul li {
+  padding-bottom: .8152173913rem;
+}
+
+.saved ul li:hover {
+  text-decoration: line-through;
+  cursor: pointer;
+}
+
+.saved__button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.saved__button button {
+  margin-left: 1.0869565217rem;
+  line-height: 0;
+  height: 32px;
+  width: auto;
+  padding: 16px;
+  border: 3px solid #0a0a0a;
+  color: #0a0a0a;
+  background-color: white;
+  font-size: 20px;
+  cursor: pointer;
+  flex: 0 0 25%;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    width: 100%;
+    padding: 0 .8152173913rem;
+    margin-right: .8152173913rem;
+    height: 80vh;
+  }
+
+  .header {
+    height: auto;
+    padding-bottom: .8152173913rem;
+  }
+
+  .header span {
+    display: none;
+    width: 0%;
+  }
+  
+  .content__image {
+    flex-direction: column;
+  }
+
+  .content__image img {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .saved {
+    display: none;
+    width: 0%;
+  }
+  
+}
