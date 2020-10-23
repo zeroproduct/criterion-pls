@@ -42,6 +42,27 @@
   cursor: pointer;
   flex: 0 0 25%;
   background-color: transparent;
+  box-shadow: 5px 6px;
+}
+
+.header button:hover {
+  margin-top: 1px;
+  margin-right: -1px;
+  box-shadow: 4px 5px;
+}
+
+.header button:active {
+  margin-top: 2px;
+  box-shadow: 2px 3px;
+}
+
+.header__link, .header__link:active {
+  color: #0a0a0a;
+}
+
+.header__link:hover {
+  color: #e6e6e6;
+  background-color: #0f00df;
 }
 
 .content {
@@ -61,6 +82,16 @@
 .content__data h1 {
   border-left: 3px solid #0a0a0a;
   padding: 0 .8152173913rem;
+}
+
+.content__data h1 a {
+  color: #0a0a0a;
+  text-decoration: none;
+}
+
+.content__data h1 a:hover {
+  color: #e6e6e6;
+  background-color: #0f00df;
 }
 
 .content__info {
@@ -87,12 +118,15 @@
 }
 
 .saved ul li {
-  padding-bottom: .8152173913rem;
+  margin-bottom: .8152173913rem;
 }
 
 .saved ul li:hover {
   text-decoration: line-through;
   cursor: pointer;
+  color: #e6e6e6;
+  background-color: #0f00df;
+  width: fit-content;
 }
 
 .saved__button {
@@ -109,10 +143,11 @@
   border: 3px solid #0a0a0a;
   color: #0a0a0a;
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   flex: 0 0 25%;
   background-color: transparent;
+  box-shadow: 3px 3px;
 }
 
 @media screen and (max-width: 768px) {

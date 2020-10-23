@@ -25,8 +25,14 @@ export async function getStaticProps() {
   $('.criterion-channel__tbody > .criterion-channel__tr > .criterion-channel__td--year').each((i, el) => {
     years[i] = $(el).text().trim();
   });
+  let movieURLs = [];
+  $('.criterion-channel__tbody > .criterion-channel__tr').each((i, el) => {
+    movieURLs[i] = $(el).attr('data-href');
+  });
   let movieImages = [];
-  $('.criterion-channel__tbody > .criterion-channel__tr > .criterion-channel__td--img > .criterion-channel__film-img-wrap > .criterion-channel__film-img').each((i, el) => {
+  $(
+    '.criterion-channel__tbody > .criterion-channel__tr > .criterion-channel__td--img > .criterion-channel__film-img-wrap > .criterion-channel__film-img'
+  ).each((i, el) => {
     movieImages[i] = $(el).attr('src');
   });
 
@@ -37,14 +43,15 @@ export async function getStaticProps() {
         directors,
         countries,
         years,
-        movieImages
+        movieURLs,
+        movieImages,
       },
     },
   };
 }
 
 // Fisher-Yates shuffling algorithm, better than using Math.random()
-// https://stackoverflow.com/questions/49555273/how-to-shuffle-an-array-of-objects-in-javascript 
+// https://stackoverflow.com/questions/49555273/how-to-shuffle-an-array-of-objects-in-javascript
 const shuffle = (array) =>
   [...Array(array.length)]
     .map((...args) => Math.floor(Math.random() * (args[1] + 1)))
@@ -64,8 +71,7 @@ const Home = ({ movies }) => {
   useEffect(() => {
     setRandomMoviesIndexes(getRandomMovieIndexes(movies.titles));
     const retrievedData = localStorage.getItem('savedMovies');
-    if (retrievedData)
-      setSavedMovies(JSON.parse(retrievedData));
+    if (retrievedData) setSavedMovies(JSON.parse(retrievedData));
   }, []);
 
   const addToSaved = () => {
@@ -76,8 +82,8 @@ const Home = ({ movies }) => {
   };
 
   const removeSaved = (movie) => {
-    setSavedMovies(savedMovies.filter(savedMovie => savedMovie !== movie));
-    localStorage.setItem('savedMovies', JSON.stringify(savedMovies.filter(savedMovie => savedMovie !== movie)));
+    setSavedMovies(savedMovies.filter((savedMovie) => savedMovie !== movie));
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovies.filter((savedMovie) => savedMovie !== movie)));
   };
 
   return (
@@ -87,35 +93,55 @@ const Home = ({ movies }) => {
         <div className={styles.header}>
           <div className={styles.header__title}>
             <h1>Criterion Pls</h1>
-            <span>Generate random Criterion Channel films to watch!</span>
+            <span>
+              Generate random{' '}
+              <a className={styles.header__link} href="https://films.criterionchannel.com/" target="_blank">
+                Criterion Channel
+              </a>{' '}
+              films to watch!
+            </span>
           </div>
           <button onClick={() => setRandomMoviesIndexes(getRandomMovieIndexes(movies.titles))}>Randomize</button>
         </div>
         <div className={styles.content}>
-        {randomMoviesIndexes.map((randomMovie) => {
-          return (
-            <div key={randomMovie}>
-              <div className={styles.content__image}>
-                <img src={`${movies.movieImages[randomMovie].split('?auto')[0]}?auto=format%2Ccompress&fit=crop&h=720&q=75&w=1280`} />
-              </div>
-              <div className={styles.content__data}>
-                <h1>{movies.titles[randomMovie]} ({movies.years[randomMovie]})</h1>
-                <div className={styles.content__info}>
-                  {movies.directors[randomMovie]} — {movies.countries[randomMovie].slice(0, -1)}
+          {randomMoviesIndexes.map((randomMovie) => {
+            return (
+              <div key={randomMovie}>
+                <div className={styles.content__image}>
+                  <img
+                    src={`${
+                      movies.movieImages[randomMovie].split('?auto')[0]
+                    }?auto=format%2Ccompress&fit=crop&h=720&q=75&w=1280`}
+                  />
+                </div>
+                <div className={styles.content__data}>
+                  <h1>
+                    <a href={movies.movieURLs[randomMovie]} target="_blank">{movies.titles[randomMovie]} ({movies.years[randomMovie]})</a>
+                  </h1>
+                  <div className={styles.content__info}>
+                    {movies.directors[randomMovie]} — {movies.countries[randomMovie].slice(0, -1)}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
       </div>
       <div className={styles.saved}>
         <h1>Saved movies</h1>
         <div className={styles.saved__list}>
           <ul>
-            {savedMovies ? savedMovies.map(movie => {
-              return <li key={movie} onClick={() => removeSaved(movie)}>{movie}</li>
-            }) : <></>}
+            {savedMovies ? (
+              savedMovies.map((movie) => {
+                return (
+                  <li key={movie} onClick={() => removeSaved(movie)}>
+                    {movie}
+                  </li>
+                );
+              })
+            ) : (
+              <></>
+            )}
           </ul>
           <div className={styles.saved__button}>
             <button onClick={() => addToSaved()}>Add</button>
